@@ -23,13 +23,12 @@ jobs:
 
       - name: Get Changeset
         id: changeset
-        run: |
-          /usr/bin/git diff remotes/origin/master --dirstat=files
+        run: echo "CHANGED_FILES=$(git diff --name-only ${{ github.event.before }}..${{ github.event.after }})" >> $GITHUB_ENV
 
       - name: Terraform Format
         id: fmt
         run: |
-          for file in ${FILES}; do cat ${file} | terraform fmt - ; done
+          terraform fmt -check
         continue-on-error: true
 
       - uses: actions/github-script@v3
