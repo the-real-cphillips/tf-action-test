@@ -3,5 +3,5 @@ output "all" {
 }
 
         output "yup" {
-  value = data.aws_caller_identity
+     value = data.aws_caller_identity
 }
