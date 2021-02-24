@@ -32,7 +32,7 @@ jobs:
             const CODE = '```';
             const output = `
             ### Terraform FMT
-            Status: :information_source: ${{ steps.fmt.outcome }}
+            :information_source: Status: ${{ steps.fmt.outcome }}
             <details>
             <summary>Output</summary>
 
