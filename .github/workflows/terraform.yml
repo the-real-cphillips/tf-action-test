@@ -19,9 +19,17 @@ jobs:
         id: setup
         uses: hashicorp/setup-terraform@v1
 
+      - name: Get Changeset
+        id: changeset
+        run: |
+          URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
+          FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .filename')
+          echo $FILES
+
       - name: Terraform Format
         id: fmt
-        run: terraform fmt -check -recursive
+        run: |
+          for file in ${FILES}; do cat ${file} | terraform fmt - ; done
         continue-on-error: true
 
       - uses: actions/github-script@v3
