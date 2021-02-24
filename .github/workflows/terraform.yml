@@ -30,9 +30,16 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const CODE = '```';
+
+            if (${{steps.fmt.outcome}} == 'success') {
+              STATUS = ":white_check_mark: Success!";
+            } else {
+              STATUS = ":x: Failure, Please Run `terraform fmt` and re-commit";
+            };
+
             const output = `
             ### Terraform FMT
-            :information_source: Status: ${{ steps.fmt.outcome }}
+            :information_source: Status: ${STATUS}
             <details>
             <summary>Output</summary>
 
