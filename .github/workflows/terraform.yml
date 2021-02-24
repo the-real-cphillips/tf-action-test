@@ -58,5 +58,5 @@ jobs:
       - name: End Result
         shell: bash
         run: |
-          echo fmt
+          echo "fmt"
           test ${{ steps.fmt.outputs.exitcode }} -eq 0
