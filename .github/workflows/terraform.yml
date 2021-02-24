@@ -23,7 +23,7 @@ jobs:
 
       - name: Get Changeset
         id: changeset
-        run: echo "CHANGED_FILES=$(git diff --name-only ${{ github.event.before }}..${{ github.event.after }})" >> $GITHUB_ENV
+        run: echo "CHANGED_FILES=$(git diff --name-only ${{ github.event.before }}..${{ github.event.after }} | grep .tf)" >> $GITHUB_ENV
 
       - name: Terraform Format
         id: fmt
