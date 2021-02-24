@@ -44,8 +44,7 @@
 
 name: 'Terraform FMT'
 
-on:
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   terraform:
