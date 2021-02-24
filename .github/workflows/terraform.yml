@@ -22,10 +22,7 @@ jobs:
       - name: Get Changeset
         id: changeset
         run: |
-          URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/files"
-          #FILES=$(curl -s -X GET -G $URL | jq -r '.[] | .tf')
-          FILES=$(curl -s -X GET -G $URL)
-          echo $FILES
+          /usr/bin/git diff remotes/origin/master --dirstat=files
 
       - name: Terraform Format
         id: fmt
