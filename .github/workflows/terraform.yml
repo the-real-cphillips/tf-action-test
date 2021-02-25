@@ -24,12 +24,14 @@ jobs:
       - id: files
         uses: jitterbit/get-changed-files@v1
       - run: |
-          echo "CHANGED_FILES=${{ steps.files.outputs.all }}" >> $GITHUB_ENV
+          echo "CHANGED_FILES=${{ steps.files.outputs.all }}" >> "${GITHUB_ENV}"
 
       - name: Terraform Format
         id: fmt
         run: |
-          echo ${CHANGED_FILES}
+          for file in "${CHANGED_FILES}"; do 
+            echo "${file}"
+          done
           #CHANGED_FILES=$(/usr/bin/git diff remotes/origin/main --diff-filter=d --name-only ./*.tf)
           #for file in ${CHANGED_FILES}; do cat ${file} | terraform fmt -check -; done
         continue-on-error: true
