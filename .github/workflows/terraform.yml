@@ -34,6 +34,8 @@ jobs:
         run: |
           IFS=',' read -r -a array <<<  "$CHANGED_FILES"
           echo "${array[@]}"
+          echo "${array[1]}"
+          
           #CHANGED_FILES=$(/usr/bin/git diff remotes/origin/main --diff-filter=d --name-only ./*.tf)
           #for file in ${CHANGED_FILES}; do cat ${file} | terraform fmt -check -; done
         continue-on-error: true
