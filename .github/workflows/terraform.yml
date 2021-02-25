@@ -21,13 +21,10 @@ jobs:
         id: setup
         uses: hashicorp/setup-terraform@v1
 
-      - name: Get Changeset
-        id: changeset
-        run: echo "CHANGED_FILES=$(git diff --name-only ${{ github.event.before }}..${{ github.event.after }} | grep .tf)" >> $GITHUB_ENV
-
       - name: Terraform Format
         id: fmt
         run: |
+          CHANGED_FILES=$(/usr/bin/git diff remotes/origin/master --diff-filter=d --name-only ./*.tf)
           for file in ${CHANGED_FILES}; do cat ${file} | terraform fmt -check -; done
         continue-on-error: true
 
