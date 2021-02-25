@@ -23,11 +23,12 @@ jobs:
 
       - id: files
         uses: jitterbit/get-changed-files@v1
-        run: |
-          for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "Do something with this ${changed_file}."
-          done
-          echo "CHANGED_FILES=${{ steps.files.outputs.all }}" >> $GITHUB_ENV
+        with:
+          run: |
+            for changed_file in ${{ steps.files.outputs.all }}; do
+              echo "Do something with this ${changed_file}."
+            done
+            echo "CHANGED_FILES=${{ steps.files.outputs.all }}" >> $GITHUB_ENV
 
       - name: Terraform Format
         id: fmt
