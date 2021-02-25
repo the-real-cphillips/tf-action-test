@@ -24,7 +24,7 @@ jobs:
       - name: Terraform Format
         id: fmt
         run: |
-          CHANGED_FILES=$(/usr/bin/git diff remotes/origin/master --diff-filter=d --name-only ./*.tf)
+          CHANGED_FILES=$(/usr/bin/git diff remotes/origin/main --diff-filter=d --name-only ./*.tf)
           for file in ${CHANGED_FILES}; do cat ${file} | terraform fmt -check -; done
         continue-on-error: true
 
