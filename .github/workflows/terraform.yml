@@ -22,8 +22,8 @@ jobs:
         uses: hashicorp/setup-terraform@v1
 
       - id: files
-          uses: jitterbit/get-changed-files@v1
-      - run: |
+        uses: jitterbit/get-changed-files@v1
+        run: |
           for changed_file in ${{ steps.files.outputs.all }}; do
             echo "Do something with this ${changed_file}."
           done
