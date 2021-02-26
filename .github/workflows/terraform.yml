@@ -23,6 +23,7 @@ jobs:
         id: fmt
         run: |
           terraform fmt -recursive
+          echo "${{ github.event }}"
           git config user.name ${{ github.actor }}
           git config user.email "devops@2u.com"
           git commit -a -m "[√] Auto-Formatted Terraform"
