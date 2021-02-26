@@ -32,7 +32,7 @@ jobs:
           git config user.name ${{ github.actor }}
           git config user.email "devops@2u.com"
           git commit -a -m "[√] Auto-Formatted Terraform"
-          git push -u origin ${{ github.base_ref }}
+          git push -u origin ${{ github.head_ref }}
 
       - uses: actions/github-script@v3
         if: github.event_name == 'pull_request' && steps.fmt.outputs.exitcode == 0
