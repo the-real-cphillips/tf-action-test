@@ -23,7 +23,9 @@ jobs:
         id: fmt
         run: |
           terraform fmt -recursive
-          git commit -am "Auto-Formatted Files"
+          git config user.name 2u-devops
+          git config user.email devops@2u.com
+          git commit -am "[√] Auto-Formatted Files"
           git push
 
       - uses: actions/github-script@v3
