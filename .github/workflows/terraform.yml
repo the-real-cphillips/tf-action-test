@@ -21,11 +21,13 @@ jobs:
 
       - name: Terraform Format
         id: fmt
-        run: terraform fmt -recursive
-        continue-on-error: true
+        run: |
+          terraform fmt -recursive
+          git commit -am "Auto-Formatted Files"
+          git push
 
       - uses: actions/github-script@v3
-        if: github.event_name == 'pull_request' && steps.fmt.outputs.exitcode != 0
+        if: github.event_name == 'pull_request' && steps.fmt.outputs.exitcode == 0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -53,6 +55,5 @@ jobs:
       - name: End Result
         shell: bash
         run: |
-          echo "fmt"
           test ${{ steps.fmt.outputs.exitcode }} -eq 0
 
