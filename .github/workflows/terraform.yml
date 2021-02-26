@@ -31,7 +31,9 @@ jobs:
           terraform fmt -recursive
           git config user.name ${{ github.actor }}
           git config user.email "devops@2u.com"
+          echo "commit"
           git commit -a -m "[√] Auto-Formatted Terraform"
+          echo "git push -u origin ${{ github.head_ref }}"
           git push -u origin ${{ github.head_ref }}
 
       - uses: actions/github-script@v3
