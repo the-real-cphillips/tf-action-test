@@ -14,18 +14,14 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+
+      - name: Get off Head
+        id: checkout_branch
+        run: git checkout "${GITHUB_REF:11}"
 
       - name: Setup Terraform
         id: setup
         uses: hashicorp/setup-terraform@v1
-
-      - name: Context
-        id: context
-        env:
-          GH_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GH_CONTEXT"
 
       - name: Terraform Format
         id: fmt
@@ -33,9 +29,7 @@ jobs:
           terraform fmt -recursive
           git config user.name ${{ github.actor }}
           git config user.email "devops@2u.com"
-          echo "commit"
           git commit -a -m "[√] Auto-Formatted Terraform"
-          echo "git push -u origin ${{ github.head_ref }}"
           git push
 
       - uses: actions/github-script@v3
