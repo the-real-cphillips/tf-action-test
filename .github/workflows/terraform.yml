@@ -14,30 +14,14 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
       - name: Setup Terraform
         id: setup
         uses: hashicorp/setup-terraform@v1
 
-      - name: Complie list of Changed Files
-        id: files
-        uses: jitterbit/get-changed-files@v1
-
-      - name: Add CHANGED_FILES to GITHUB_ENV
-        run: |
-          echo "CHANGED_FILES=${{ steps.files.outputs.all }}" >> "${GITHUB_ENV}"
-
       - name: Terraform Format
         id: fmt
-        run: |
-          IFS=',' read -r -a array <<<  "$CHANGED_FILES"
-          echo "${array[@]}"
-          echo "${array[1]}"
-          
-          #CHANGED_FILES=$(/usr/bin/git diff remotes/origin/main --diff-filter=d --name-only ./*.tf)
-          #for file in ${CHANGED_FILES}; do cat ${file} | terraform fmt -check -; done
+        run: terraform fmt -recursive
         continue-on-error: true
 
       - uses: actions/github-script@v3
@@ -46,7 +30,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const CODE = '```';
-            const STATUS = ":x: **Failure**, Please Run `terraform fmt`";
+            const STATUS = ":white_check_mark: Auto Formatted Files"
 
             const output = `
             ### Terraform FMT
@@ -71,3 +55,4 @@ jobs:
         run: |
           echo "fmt"
           test ${{ steps.fmt.outputs.exitcode }} -eq 0
+
