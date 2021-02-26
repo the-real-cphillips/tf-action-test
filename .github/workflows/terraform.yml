@@ -23,10 +23,12 @@ jobs:
         id: fmt
         run: |
           terraform fmt -recursive
-          git config user.name 2u-devops
-          git config user.email devops@2u.com
-          git commit -am "[√] Auto-Formatted Files"
-          git push
+          git config user.name ${{ github.actor }}
+          git config user.email "devops@2u.com"
+          git add -A
+          git commit -a -m "[√] Auto-Formatted Terraform"
+          git log --name-only
+          git push 
 
       - uses: actions/github-script@v3
         if: github.event_name == 'pull_request' && steps.fmt.outputs.exitcode == 0
