@@ -19,11 +19,16 @@ jobs:
         id: setup
         uses: hashicorp/setup-terraform@v1
 
+      - name: Context
+        id: context
+        env:
+          GH_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GH_CONTEXT"
+
       - name: Terraform Format
         id: fmt
         run: |
           terraform fmt -recursive
-          echo "${{ github.event }}"
           git config user.name ${{ github.actor }}
           git config user.email "devops@2u.com"
           git commit -a -m "[√] Auto-Formatted Terraform"
