@@ -36,7 +36,7 @@ jobs:
           echo "commit"
           git commit -a -m "[√] Auto-Formatted Terraform"
           echo "git push -u origin ${{ github.head_ref }}"
-          git push -u origin ${{ github.head_ref }}
+          git push
 
       - uses: actions/github-script@v3
         if: github.event_name == 'pull_request' && steps.fmt.outputs.exitcode == 0
