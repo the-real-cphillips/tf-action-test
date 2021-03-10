@@ -1,4 +1,4 @@
-  output "all" {
+output "all" {
   value = data.aws_caller_identity.current
 }
 
