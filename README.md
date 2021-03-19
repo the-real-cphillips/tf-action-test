@@ -2,5 +2,5 @@
 
 <details>
 <summary>Output</summary>
-![](https://i.imgur.com/jQrWRRN.mp4)
+<img src="https://i.imgur.com/jQrWRRN.mp4" alt="GIF demo" style="max-width:100%;">
 </details>
